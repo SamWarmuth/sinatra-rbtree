@@ -2,11 +2,12 @@ require 'rubygems'
 require 'sinatra'
 require 'redblack'
 require 'haml'
-
 $tree_out = []
+$last_edit = ""
 configure do
 	$rbtree = RBTree.new
 end
+
 before do headers "Content-Type" => "text/html; charset=utf-8" end
 
 
@@ -17,15 +18,18 @@ get '/' do
 end
 
 post '/add' do
-	$rbtree.add(params[:add].to_i) rescue nil
+	$lastEdit = "Added	#{params[:add]}"	
+	$rbtree.add(params[:add].to_i) rescue $lastEdit = "Add Failed"
 	redirect '/'
 end
 post '/remove' do
-	$rbtree.find_and_remove(params[:remove].to_i) rescue nil
+	$lastEdit = "Removed #{params[:remove]}"	
+	$rbtree.find_and_remove(params[:remove].to_i) rescue $lastEdit = "Remove Failed"
 	redirect '/'
 end	
 
 get '/clear' do
+	$lastEdit = "Tree Cleared."
 	$rbtree = RBTree.new
 	redirect '/'
 end
@@ -46,7 +50,6 @@ __END__
 	=yield
 
 @@index
-- 
 -for i in 0..$rbtree.height+1
 	%table{:align => "center", :style => "width: 100%; text-align: center; "}
 		%tr
@@ -61,6 +64,7 @@ __END__
 		%br/
 						  
 %br
+=$lastEdit
 %form{:method => "POST", :action => "/add"}
 	= text_input("Add Node:", "add", rand(500))
 	%input{:type => "submit", :value => "go"}
