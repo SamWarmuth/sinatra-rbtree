@@ -27,6 +27,7 @@ end
 
 get '/clear' do
 	$rbtree = RBTree.new
+	redirect '/'
 end
 
 
@@ -67,5 +68,5 @@ __END__
 	= text_input("Remove Node:", "remove")
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"GET", :action => "clear"}
-	%input{:type => "Clear Red-Black Tree", :value => "go"}
+	%input{:type => "submit", :value => "Clear Red-Black Tree"}
 		
