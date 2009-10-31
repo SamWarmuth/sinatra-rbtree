@@ -6,7 +6,6 @@ require 'haml'
 $tree_out = []
 configure do
 	$rbtree = RBTree.new
-	rand(20).times #{$rbtree.add(rand(40))}
 end
 before do headers "Content-Type" => "text/html; charset=utf-8" end
 
