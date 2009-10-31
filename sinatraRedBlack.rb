@@ -69,4 +69,5 @@ __END__
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"GET", :action => "clear"}
 	%input{:type => "submit", :value => "Clear Red-Black Tree"}
+%a{:href => "http://github.com/harpastum/sinatra-rbtree"} Source Code (github)
 		
