@@ -6,7 +6,7 @@ require 'haml'
 $tree_out = []
 configure do
 	$rbtree = RBTree.new
-	$rbtree.pump(4,5,23,21,76,34,21,14,15,18,3,99,31,2,6,8,30,29)
+	rand(20).times #{$rbtree.add(rand(40))}
 end
 before do headers "Content-Type" => "text/html; charset=utf-8" end
 
@@ -17,12 +17,14 @@ get '/' do
 	haml :index
 end
 
-post '/' do
-	$rbtree.add(params[:add].to_i)
-	$rbtree.find_and_remove(params[:remove].to_i) rescue nil
+post '/add' do
+	$rbtree.add(params[:add].to_i) rescue nil
 	redirect '/'
 end
-	
+post '/remove' do
+	$rbtree.find_and_remove(params[:remove].to_i) rescue nil
+	redirect '/'
+end	
 
 
 helpers do
