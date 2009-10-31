@@ -62,7 +62,7 @@ __END__
 						  
 %br
 %form{:method => "POST", :action => "/add"}
-	= text_input("Add Node:", "add", rand(50))
+	= text_input("Add Node:", "add", rand(500))
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"POST", :action => "remove"}
 	= text_input("Remove Node:", "remove")
