@@ -6,6 +6,7 @@ $tree_out = []
 $last_edit = ""
 configure do
 	$rbtree = RBTree.new
+	$rbtree.pump(4,2,3,5,7,8,48,9,0,65,7,8,76,54,62,66)
 end
 
 before do headers "Content-Type" => "text/html; charset=utf-8" end
