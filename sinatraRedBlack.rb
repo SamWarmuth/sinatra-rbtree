@@ -24,6 +24,9 @@ post '/remove' do
 	$rbtree.find_and_remove(params[:remove].to_i) rescue nil
 	redirect '/'
 end	
+get '/clear'
+	$rbtree = RBTree.new
+end
 
 
 helpers do
@@ -62,5 +65,6 @@ __END__
 %form{:method =>"POST", :action => "remove"}
 	= text_input("Remove Node:", "remove")
 	%input{:type => "submit", :value => "go"}
-
+%form{:method =>"GET", :action => "clear"}
+	%input{:type => "Clear Red-Black Tree", :value => "go"}
 		
