@@ -63,8 +63,8 @@ __END__
 					= node.parent.value.to_s.eql?("-") ? "" : node.value.to_s rescue node.value.to_s
 		%br/
 						  
-%br
-=$lastEdit
+%p{:style => "color: gray;"}
+	=$lastEdit
 %form{:method => "POST", :action => "/add"}
 	= text_input("Add Node:", "add", rand(500))
 	%input{:type => "submit", :value => "go"}
