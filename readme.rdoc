@@ -1,0 +1,15 @@
+= Sinatra Red-Black Tree
+
+Sinatra-rbtree is a basic web app that models adding and deleting from a red black tree
+
+== Installation
+
+  Just check out the repository 
+
+== Example
+
+  Head on over to rbtree.heroku.com to see it in action.
+
+== Legal
+
+Author:: S. Warmuth <sam@samwarmuth.com>  
