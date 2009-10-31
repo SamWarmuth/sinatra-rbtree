@@ -24,7 +24,8 @@ post '/remove' do
 	$rbtree.find_and_remove(params[:remove].to_i) rescue nil
 	redirect '/'
 end	
-get '/clear'
+
+get '/clear' do
 	$rbtree = RBTree.new
 end
 
