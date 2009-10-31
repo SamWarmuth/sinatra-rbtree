@@ -4,12 +4,12 @@ Sinatra-rbtree is a basic web app that models adding and deleting from a red bla
 
 == Installation
 
-  Just check out the repository 
+  1. Check out the repository 
+  2. Host it on heroku (www.heroku.com) for free
+  3. ...
+  4. Profit?
 
 == Example
 
   Head on over to rbtree.heroku.com to see it in action.
 
-== Legal
-
-Author:: S. Warmuth <sam@samwarmuth.com>  
