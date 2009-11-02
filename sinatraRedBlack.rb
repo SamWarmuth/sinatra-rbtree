@@ -1,12 +1,12 @@
 require 'rubygems'
 require 'sinatra'
-require 'redblack'
+load 'redblack.rb'
 require 'haml'
 $tree_out = []
 $last_edit = ""
 configure do
 	$rbtree = RBTree.new
-	$rbtree.pump(4,2,3,5,7,8,48,9,0,65,7,8,76,54,62,66)
+	$rbtree.pump(30,20,60,55)
 end
 
 before do headers "Content-Type" => "text/html; charset=utf-8" end
@@ -14,18 +14,18 @@ before do headers "Content-Type" => "text/html; charset=utf-8" end
 
 get '/' do
 	$tree_out.clear
-	$tree_out.push $rbtree.root unless $rbtree.root.nil?
+	$tree_out.push $rbtree.root
 	haml :index
 end
 
 post '/add' do
 	$lastEdit = "Added	#{params[:add]}"	
-	$rbtree.add(params[:add].to_i) rescue $lastEdit = "Add Failed"
+	$rbtree.add(params[:add].to_i)# rescue $lastEdit = "Add Failed"
 	redirect '/'
 end
 post '/remove' do
 	$lastEdit = "Removed #{params[:remove]}"	
-	$rbtree.find_and_remove(params[:remove].to_i) rescue $lastEdit = "Remove Failed"
+	$rbtree.find_and_remove(params[:remove].to_i) # rescue $lastEdit = "Remove Failed"
 	redirect '/'
 end	
 
@@ -51,17 +51,17 @@ __END__
 	=yield
 
 @@index
--for i in 0..$rbtree.height+1
+-for i in 0..$rbtree.height
 	%table{:align => "center", :style => "width: 100%; text-align: center; "}
 		%tr
 			-(2**i).times do |index|
 				-break if $tree_out.empty?
 				-node = $tree_out.pop
-				-$tree_out.insert(0,(node.left ? node.left : RBNode.new("-", node)))
-				-$tree_out.insert(0,(node.right ? node.right : RBNode.new("-", node)))
-				-color = node.value.to_s.eql?("-") ? "black" : node.color.to_s
-				%td{:style => "width: #{100/(2**i)}%; color: #{color};"}
-					= node.parent.value.to_s.eql?("-") ? "" : node.value.to_s rescue node.value.to_s
+				-$tree_out.insert(0,node.left)
+				-$tree_out.insert(0,node.right)
+				-color =  node.color.to_s
+				%td{:style => "width: #{100/(2**i)}%; color: #{color}; font-size: #{(150-(15*i))}%"}
+					=(node.value.nil? ? "-" : node.value.to_s)
 		%br/
 						  
 %p{:style => "color: gray;"}
@@ -70,7 +70,7 @@ __END__
 	= text_input("Add Node:", "add", rand(500))
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"POST", :action => "remove"}
-	= text_input("Remove Node:", "remove")
+	= text_input("Remove Node:", "remove", 60)
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"GET", :action => "clear"}
 	%input{:type => "submit", :value => "Clear Red-Black Tree"}
