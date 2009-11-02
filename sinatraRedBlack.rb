@@ -60,9 +60,9 @@ __END__
 				-$tree_out.insert(0,node.left)
 				-$tree_out.insert(0,node.right)
 				-color =  node.color.to_s
-				%td{:style => "width: #{100/(2**i)}%; color: #{color}; font-size: #{(150-(15*i))}%"}
+				%td{:style => "width: #{100/(2**i)}%; color: #{color}; font-size: #{(150-(15*i))}%; background-color: #F5F5F5;"}
 					=(node.value.nil? ? "-" : node.value.to_s)
-		%br/
+		
 						  
 %p{:style => "color: gray;"}
 	=$lastEdit
