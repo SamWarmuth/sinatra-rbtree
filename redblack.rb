@@ -47,6 +47,7 @@ class RBTree
 		end
 	end
 	def add(value)
+		return false if contains?(value)
 		active_node = RBNode.new(value)
 		active_node.left = @nilNode
 		active_node.right = @nilNode
