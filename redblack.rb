@@ -23,8 +23,6 @@ class NilNode < RBNode
 	end
 end
 
-
-
 class RBTree
 	attr_accessor :root
 	def initialize(root_value=nil)
@@ -41,7 +39,7 @@ class RBTree
 			@root.right = @nilNode
 		end
 	end
-	def pump(*values)
+	def add_multiple(*values)
 		values.each do |value|
 			self.add(value)
 		end
@@ -91,7 +89,7 @@ class RBTree
 		end
 		@root.color = :black
 	end
-	def insert(new_node, tree_node)		
+	def insert(new_node, tree_node)	
 		case (new_node.value <=> tree_node.value)
 		when 1
 			if tree_node.right != @nilNode
@@ -216,7 +214,6 @@ class RBTree
 			end
 		end
 	end
-	
 	def contains?(value, node=@root)
 		return false if node == @nilNode
 		case value <=> node.value
@@ -238,7 +235,6 @@ class RBTree
 		end
 		return y
 	end
-		
 	def minimum(node)
 		while node.left != @nilNode
 			node = node.left
@@ -251,18 +247,28 @@ class RBTree
 		end
 		node
 	end
-	def height(node=@root, height=0)
+	def height(node=@root, height=1)
 		return 0 if node == @nilNode
 		lheight = node.left != @nilNode ? height(node.left,height+1) : height
 		rheight = node.right != @nilNode ? height(node.right,height+1) : height
 		return [lheight, rheight].max
 	end
-	def size(node=@root,size=0)
-		return 0 if node == @nilNode
-		node.left == @nilNode ? leftsize = 0 : leftsize = size(node.left, size+1)
-		node.right == @nilNode ? rightsize = 0 : leftsize = size(node.right, size+1)
-		
-		return leftsize+rightsize
+	def black_height(node=@root, height=0)
+	  return 0 if node == @nilNode
+	  height += 1 if node.color == :black
+	  return (node.left == @nilNode ? height : black_height(node.left,height))
+	end
+	def size(node=@root)
+		stack = []
+		stack.push node
+		count = 0
+		while !stack.empty?
+			node = stack.pop
+			count += 1
+			stack.push node.left if node.left != @nilNode
+			stack.push node.right if node.right != @nilNode
+		end
+		return count
 	end
 	def to_s
 		puts @root.to_s
