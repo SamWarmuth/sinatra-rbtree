@@ -19,13 +19,22 @@ get '/' do
 end
 
 post '/add' do
-	$lastEdit = "Added	#{params[:add]}"	
-	$rbtree.add(params[:add].to_i)# rescue $lastEdit = "Add Failed"
+	if $rbtree.contains?(params[:add].to_i)
+		$lastEdit = "Error: #{params[:add]} already in tree."	
+	else
+		$rbtree.add(params[:add].to_i)# rescue $lastEdit = "Add Failed"
+		$lastEdit = "Added	#{params[:add]}"	
+	end
 	redirect '/'
 end
 post '/remove' do
-	$lastEdit = "Removed #{params[:remove]}"	
-	$rbtree.find_and_remove(params[:remove].to_i) # rescue $lastEdit = "Remove Failed"
+	if $rbtree.contains?(params[:remove].to_i)
+		$rbtree.find_and_remove(params[:remove].to_i) # rescue $lastEdit = "Remove Failed"
+		$lastEdit = "Removed #{params[:remove]}"
+	else
+		$lastEdit = "Error: #{params[:remove]} not in tree."
+	end
+
 	redirect '/'
 end	
 
@@ -74,5 +83,5 @@ __END__
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"GET", :action => "clear"}
 	%input{:type => "submit", :value => "Clear Red-Black Tree"}
-%a{:href => "http://github.com/harpastum/sinatra-rbtree"} Source Code (github)
+%a{:href => "http://github.com/harpastum/sinatra-rbtree"} Source Code
 		

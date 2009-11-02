@@ -112,7 +112,7 @@ class RBTree
 	def left_rotate(root)
 		pivot = root.right		
 		root.right = pivot.left
-		pivot.left.parent=root unless pivot.left = @nilNode
+		pivot.left.parent=root
 		pivot.parent = root.parent
 		if root.parent != @nilNode
 			if root == root.parent.left
@@ -129,7 +129,7 @@ class RBTree
 	def right_rotate(root)
 		pivot = root.left
 		root.left = pivot.right
-		pivot.right.parent=root unless pivot.right == @nilNode
+		pivot.right.parent=root
 		pivot.parent = root.parent
 		if root.parent != @nilNode
 			if root == root.parent.right
