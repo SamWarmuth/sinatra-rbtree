@@ -13,6 +13,7 @@ class RBNode
 		str
 	end
 end
+
 class NilNode < RBNode
 	def initialize
 		@value = nil
