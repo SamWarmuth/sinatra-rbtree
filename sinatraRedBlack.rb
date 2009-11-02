@@ -61,7 +61,7 @@ __END__
 				-$tree_out.insert(0,node.right)
 				-color =  node.color.to_s
 				%td{:style => "width: #{100/(2**i)}%; color: #{color}; font-size: #{(150-(15*i))}%; background-color: #F5F5F5;"}
-					=(node.value.nil? ? "-" : node.value.to_s)
+					=(node.value.nil? ? "" : node.value.to_s)
 		
 						  
 %p{:style => "color: gray;"}
