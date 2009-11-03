@@ -80,7 +80,7 @@ __END__
 	= text_input("Add Node:", "add", new_add)
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"POST", :action => "remove"}
-	= text_input("Remove Node:", "remove", 60)
+	= text_input("Remove Node:", "remove")
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"GET", :action => "clear"}
 	%input{:type => "submit", :value => "Clear Red-Black Tree"}

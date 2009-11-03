@@ -272,5 +272,5 @@ class RBTree
 	def to_s
 		puts @root.to_s
 	end
-	private :insert
+	protected :insert
 end
