@@ -2,20 +2,14 @@ require 'rubygems'
 require 'sinatra'
 load 'redblack.rb'
 require 'haml'
-$tree_array = []
 $tree_out = []
 $last_edit = ""
-
-enable :sessions
-
-before do
-	headers "Content-Type" => "text/html; charset=utf-8" 
-	if session["sessionID"].nil?
-		session["sessionID"] = $tree_array.length
-		$tree_array.push RBTree.new
-	end
-	$rbtree = $tree_array[session["sessionID"]]
+configure do
+	$rbtree = RBTree.new
+	$rbtree.add_multiple(28,6,70,40,5,18)
 end
+
+before do headers "Content-Type" => "text/html; charset=utf-8" end
 
 get '/' do
 	$tree_out.clear
