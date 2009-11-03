@@ -153,7 +153,7 @@ class RBTree
 			y == y.parent.left ? y.parent.left = x : y.parent.right = x
 		end
 		pop = node.value
-		node.value = y.value if y != node  #Kills satellite data
+		node.value = y.value if y != node
 		delete_fix(x) if y.color == :black
 		return pop
 	end
@@ -183,7 +183,7 @@ class RBTree
 					left_rotate(x.parent)
 					x = @root
 				end
-			else # DRY...ugh
+			else # x == x.parent.right
 				w = x.parent.left
 				if w.color == :red
 					w.color = :black
@@ -211,6 +211,7 @@ class RBTree
 				end
 			end
 		end
+		x.color = :black
 	end
 	def contains?(value, node=@root)
 		return false if node == @nilNode

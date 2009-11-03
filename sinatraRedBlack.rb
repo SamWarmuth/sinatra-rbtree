@@ -6,7 +6,7 @@ $tree_out = []
 $last_edit = ""
 configure do
 	$rbtree = RBTree.new
-	$rbtree.add_multiple(30,20,60,55)
+	$rbtree.add_multiple(28,6,70,40,5,18)
 end
 
 before do headers "Content-Type" => "text/html; charset=utf-8" end
@@ -60,7 +60,7 @@ __END__
 %h3
 	Size = #{$rbtree.size}, Max Height = #{$rbtree.height}, Black-Height = #{$rbtree.black_height}.
 -for i in 0..$rbtree.height-1
-	%table{:align => "center", :style => "width: #{(2**$rbtree.height)*15}px; text-align: center; "}
+	%table{:align => "center", :style => "width: #{(2.0**$rbtree.height)*15}px; text-align: center; "}
 		%tr
 			-(2**i).times do |index|
 				-break if $tree_out.empty?
@@ -68,13 +68,16 @@ __END__
 				-$tree_out.insert(0,node.left)
 				-$tree_out.insert(0,node.right)
 				-color =  node.color.to_s
-				%td{:style => "width: #{100/(2**i)}%; color: #{color}; font-size: #{(150-(15*i))}%; background-color: #F5F5F5;"}
+				%td{:style => "width: #{100.0/(2**i)}%; color: #{color}; font-size: #{(150-(15*i))}%; background-color: #F5F5F5;"}
 					=(node.value.nil? ? "" : node.value.to_s)				
 						  
 %p{:style => "color: gray;"}
 	=$lastEdit
 %form{:method => "POST", :action => "/add"}
-	= text_input("Add Node:", "add", rand(100))
+	- new_add = rand(100)
+	- until !$rbtree.contains?(new_add)||$rbtree.size > 75 
+		- new_add=rand(100)
+	= text_input("Add Node:", "add", new_add)
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"POST", :action => "remove"}
 	= text_input("Remove Node:", "remove", 60)
