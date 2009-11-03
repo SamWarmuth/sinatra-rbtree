@@ -58,9 +58,9 @@ __END__
 
 @@index
 %h3
-	Size = #{$rbtree.size}, Height = #{$rbtree.height}, Black-Height = #{$rbtree.black_height}.
+	Size = #{$rbtree.size}, Max Height = #{$rbtree.height}, Black-Height = #{$rbtree.black_height}.
 -for i in 0..$rbtree.height-1
-	%table{:align => "center", :style => "width: #{$rbtree.height < 6 ? "100%" : "#{(2**$rbtree.height)*15}px"}; text-align: center; "}
+	%table{:align => "center", :style => "width: #{(2**$rbtree.height)*15}px; text-align: center; "}
 		%tr
 			-(2**i).times do |index|
 				-break if $tree_out.empty?
