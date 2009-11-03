@@ -259,7 +259,7 @@ class RBTree
 	end
 	def size(node=@root)
 		stack = []
-		stack.push node
+		stack.push node if node != @nilNode
 		count = 0
 		while !stack.empty?
 			node = stack.pop
