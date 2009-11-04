@@ -17,17 +17,17 @@ get '/' do
 	haml :index
 end
 post '/add' do
-	if $rbtree.contains?(params[:add].to_i)
+	if $rbtree.contains?(params[:add])
 		$lastEdit = "Error: #{params[:add]} already in tree."	
 	else
-		$rbtree.add(params[:add].to_i)# rescue $lastEdit = "Add Failed"
+		$rbtree.add(params[:add])# rescue $lastEdit = "Add Failed"
 		$lastEdit = "Added	#{params[:add]}"	
 	end
 	redirect '/'
 end
 post '/remove' do
-	if $rbtree.contains?(params[:remove].to_i)
-		$rbtree.find_and_remove(params[:remove].to_i) # rescue $lastEdit = "Remove Failed"
+	if $rbtree.contains?(params[:remove])
+		$rbtree.find_and_remove(params[:remove]) # rescue $lastEdit = "Remove Failed"
 		$lastEdit = "Removed #{params[:remove]}"
 	else
 		$lastEdit = "Error: #{params[:remove]} not in tree."
