@@ -6,7 +6,7 @@ $tree_out = []
 $last_edit = ""
 configure do
 	$rbtree = RBTree.new
-	$rbtree.add_multiple(28,6,70,40,5,18)
+	$rbtree.add_multiple(28,6,70,5,1,12)
 end
 
 before do headers "Content-Type" => "text/html; charset=utf-8" end
@@ -17,17 +17,17 @@ get '/' do
 	haml :index
 end
 post '/add' do
-	if $rbtree.contains?(params[:add])
+	if $rbtree.contains?(params[:add].to_i)
 		$lastEdit = "Error: #{params[:add]} already in tree."	
 	else
-		$rbtree.add(params[:add])# rescue $lastEdit = "Add Failed"
+		$rbtree.add(params[:add].to_i)# rescue $lastEdit = "Add Failed"
 		$lastEdit = "Added	#{params[:add]}"	
 	end
 	redirect '/'
 end
 post '/remove' do
-	if $rbtree.contains?(params[:remove])
-		$rbtree.find_and_remove(params[:remove]) # rescue $lastEdit = "Remove Failed"
+	if $rbtree.contains?(params[:remove].to_i)
+		$rbtree.find_and_remove(params[:remove].to_i) # rescue $lastEdit = "Remove Failed"
 		$lastEdit = "Removed #{params[:remove]}"
 	else
 		$lastEdit = "Error: #{params[:remove]} not in tree."
@@ -80,7 +80,7 @@ __END__
 	= text_input("Add Node:", "add", new_add)
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"POST", :action => "remove"}
-	= text_input("Remove Node:", "remove")
+	= text_input("Remove Node:", "remove", 60)
 	%input{:type => "submit", :value => "go"}
 %form{:method =>"GET", :action => "clear"}
 	%input{:type => "submit", :value => "Clear Red-Black Tree"}
